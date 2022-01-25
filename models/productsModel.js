@@ -5,6 +5,12 @@ const getAll = async () => {
   return rows;
 };
 
+const getById = async (id) => {
+  const [row] = await connection.execute('SELECT * FROM products WHERE id = ?', [id]);
+  const product = row[0];
+  return product;
+};
+
 const create = async (name, quantity) => {
   const [rows] = await connection.execute(
     'INSERT INTO products (name, quantity) VALUES (?, ?)',
@@ -20,5 +26,6 @@ const create = async (name, quantity) => {
 
 module.exports = {
   getAll,
+  getById,
   create,
 };
