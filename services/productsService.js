@@ -5,7 +5,8 @@ const create = async ({ name, quantity }) => {
     const response = await productsModel.create({ name, quantity });
     return response;
   } catch (error) {
-    return error;
+    console.log(error);
+    return { message: 'não rolou' };
   }
 };
 
