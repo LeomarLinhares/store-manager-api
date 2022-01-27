@@ -21,8 +21,8 @@ module.exports = {
 
   validateQuantity: (req, res, next) => {
     const { quantity } = req.body;
-    if (!quantity) return res.status(400).json({ message: msg.QUANTITY_REQUIRED });
-    if (parseInt(quantity, 10) < 1) {
+    if (quantity === undefined) return res.status(400).json({ message: msg.QUANTITY_REQUIRED });
+    if (typeof quantity !== 'number' || quantity <= 0) {
       return res.status(422).json({ message: msg.QUANTITY_LARGER_THAN_0 });
     }
 
