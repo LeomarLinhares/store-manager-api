@@ -1,7 +1,12 @@
 require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
-const productsController = require('./controllers/productsController');
+
+const {
+  create,
+  getAll,
+} = require('./controllers/productsController');
+
 const {
   validateName,
   validateIfProductExists,
@@ -17,7 +22,8 @@ app.get('/', (_request, response) => {
 });
 
 app.route('/products')
-  .post(validateName, validateIfProductExists, validateQuantity, productsController.create);
+  .post(validateName, validateIfProductExists, validateQuantity, create)
+  .get(getAll);
 
 app.listen(process.env.PORT, () => {
   console.log(`Escutando na porta ${process.env.PORT}`);
