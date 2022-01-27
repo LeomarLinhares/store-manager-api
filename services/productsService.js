@@ -21,7 +21,17 @@ const getAll = async () => {
   }
 };
 
+const getById = async (id) => {
+  try {
+    const response = await productsModel.getById(id);
+    return response[0];
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 module.exports = {
   create,
   getAll,
+  getById,
 };
