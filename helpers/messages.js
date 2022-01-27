@@ -5,4 +5,5 @@ module.exports = {
   DATABASE_ERROR_CREATE: 'An error occurred when trying to add product to the database',
   QUANTITY_REQUIRED: '"quantity" is required',
   QUANTITY_LARGER_THAN_0: '"quantity" must be a number larger than or equal to 1',
+  COULD_NOT_GET_PRODUCTS: 'Could not get products from database',
 };
