@@ -16,7 +16,7 @@ app.get('/', (_request, response) => {
   response.send();
 });
 
-app.route('/products/')
+app.route('/products')
   .post(validateName, validateIfProductExists, validateQuantity, productsController.create);
 
 app.listen(process.env.PORT, () => {
