@@ -28,4 +28,14 @@ module.exports = {
 
     next();
   },
+
+  validateId: async (req, res, next) => {
+    const { id } = req.params;
+    const thereIsTheProduct = await productsModel.getById(id);
+    if (thereIsTheProduct.length === 0) {
+      return res.status(404).json({ message: msg.PRODUCT_NOT_FOUND });
+    }
+
+    next();
+  },
 };
