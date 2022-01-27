@@ -1,12 +1,13 @@
 const productsModel = require('../models/productsModel');
+const msg = require('../helpers/messages');
 
 const create = async ({ name, quantity }) => {
   try {
-    const response = await productsModel.create({ name, quantity });
+    const response = await productsModel.create(name, quantity);
     return response;
   } catch (error) {
     console.log(error);
-    return { message: 'não rolou' };
+    return { message: msg.DATABASE_ERROR_CREATE };
   }
 };
 
