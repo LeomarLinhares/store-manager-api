@@ -1,4 +1,4 @@
-const msg = require('../helpers/messages');
+const msg = require('../messages/messages');
 const productsModel = require('../models/productsModel');
 
 module.exports = {

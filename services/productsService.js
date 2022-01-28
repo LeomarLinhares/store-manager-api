@@ -1,5 +1,5 @@
 const productsModel = require('../models/productsModel');
-const msg = require('../helpers/messages');
+const msg = require('../messages/messages');
 
 const create = async ({ name, quantity }) => {
   try {
