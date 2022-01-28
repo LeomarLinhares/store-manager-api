@@ -21,7 +21,7 @@ const create = async (name, quantity) => {
   };
 };
 
-const update = async (name, quantity, id) => {
+const update = async ({ name, quantity, id }) => {
   await connection.execute(QUERY.UPDATE_PRODUCT, [name, quantity, id]);
   return { id, name, quantity };
 };
