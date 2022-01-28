@@ -30,8 +30,18 @@ const getById = async (id) => {
   }
 };
 
+const update = async (action) => {
+  try {
+    const response = await productsModel.update(action);
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 module.exports = {
   create,
   getAll,
   getById,
+  update,
 };
