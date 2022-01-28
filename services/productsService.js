@@ -39,9 +39,20 @@ const update = async (action) => {
   }
 };
 
+const remove = async (id) => {
+  try {
+    const response = await productsModel.getById(id);
+    await productsModel.remove(id);
+    return response[0];
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 module.exports = {
   create,
   getAll,
   getById,
   update,
+  remove,
 };
