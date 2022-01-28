@@ -6,6 +6,7 @@ const {
   create,
   getAll,
   getProductById,
+  updateProduct,
 } = require('./controllers/productsController');
 
 const {
@@ -16,6 +17,7 @@ const {
 } = require('./middlewares/validateProducts');
 
 const app = express();
+
 app.use(bodyParser.json());
 
 // não remova esse endpoint, e para o avaliador funcionar
@@ -24,7 +26,8 @@ app.get('/', (_request, response) => {
 });
 
 app.route('/products/:id')
-  .get(validateId, getProductById);
+  .get(validateId, getProductById)
+  .put(validateQuantity, validateName, validateId, updateProduct);
 
 app.route('/products')
   .post(validateName, validateIfProductExists, validateQuantity, create)
