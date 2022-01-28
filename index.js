@@ -7,6 +7,7 @@ const {
   getAll,
   getProductById,
   updateProduct,
+  deleteProduct,
 } = require('./controllers/productsController');
 
 const {
@@ -27,7 +28,8 @@ app.get('/', (_request, response) => {
 
 app.route('/products/:id')
   .get(validateId, getProductById)
-  .put(validateQuantity, validateName, validateId, updateProduct);
+  .put(validateQuantity, validateName, validateId, updateProduct)
+  .delete(validateId, deleteProduct);
 
 app.route('/products')
   .post(validateName, validateIfProductExists, validateQuantity, create)
