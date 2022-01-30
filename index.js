@@ -11,6 +11,10 @@ const {
 } = require('./controllers/productsController');
 
 const {
+  createSale,
+} = require('./controllers/salesController');
+
+const {
   validateName,
   validateIfProductExists,
   validateQuantity,
@@ -25,6 +29,9 @@ app.use(bodyParser.json());
 app.get('/', (_request, response) => {
   response.send();
 });
+
+app.route('/sales')
+  .post(createSale);
 
 app.route('/products/:id')
   .get(validateId, getProductById)
