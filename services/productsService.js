@@ -4,7 +4,11 @@ const msg = require('../messages/messages');
 const create = async ({ name, quantity }) => {
   try {
     const response = await productsModel.create(name, quantity);
-    return response;
+    return {
+      id: response.insertId,
+      name,
+      quantity,
+    };
   } catch (error) {
     console.log(error);
     return { message: msg.DATABASE_ERROR_CREATE };
