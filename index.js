@@ -21,6 +21,11 @@ const {
   validateId,
 } = require('./middlewares/validateProducts');
 
+const {
+  validateProductId,
+  validateSalesQuantity,
+} = require('./middlewares/validateSales');
+
 const app = express();
 
 app.use(bodyParser.json());
@@ -31,7 +36,7 @@ app.get('/', (_request, response) => {
 });
 
 app.route('/sales')
-  .post(createSale);
+  .post(validateProductId, validateSalesQuantity, createSale);
 
 app.route('/products/:id')
   .get(validateId, getProductById)
