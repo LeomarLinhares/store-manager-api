@@ -2,23 +2,18 @@ const connection = require('./connection');
 const QUERY = require('../helpers/queries');
 
 const getAll = async () => {
-  const [rows] = await connection.execute(QUERY.SELECT_ALL);
+  const [rows] = await connection.execute(QUERY.SELECT_ALL_PRODUCTS);
   return rows;
 };
 
 const getById = async (id) => {
-  const [row] = await connection.execute(QUERY.SELECT_BY_ID, [id]);
+  const [row] = await connection.execute(QUERY.SELECT_PRODUCTS_BY_ID, [id]);
   return row;
 };
 
 const create = async (name, quantity) => {
   const [rows] = await connection.execute(QUERY.INSERT_PRODUCT, [name, quantity]);
-
-  return {
-    id: rows.insertId,
-    name,
-    quantity,
-  };
+  return rows;
 };
 
 const update = async ({ name, quantity, id }) => {
