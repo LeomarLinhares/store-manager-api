@@ -11,7 +11,7 @@ module.exports = {
 
   validateSalesQuantity: (req, res, next) => {
     const sales = req.body;
-    const thereIsMissingQuantity = sales.some((product) => !product.quantity);
+    const thereIsMissingQuantity = sales.some((product) => product.quantity === undefined);
     if (thereIsMissingQuantity) return res.status(400).json({ message: msg.QUANTITY_REQUIRED });
     const someQuantityIsInvalid = sales
       .some((sale) => typeof sale.quantity !== 'number' || sale.quantity < 1);
