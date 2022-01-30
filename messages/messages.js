@@ -7,4 +7,5 @@ module.exports = {
   QUANTITY_LARGER_THAN_0: '"quantity" must be a number larger than or equal to 1',
   COULD_NOT_GET_PRODUCTS: 'Could not get products from database',
   PRODUCT_NOT_FOUND: 'Product not found',
+  PRODUCT_ID_REQUIRED: '"product_id" is required',
 };
