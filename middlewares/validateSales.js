@@ -8,4 +8,15 @@ module.exports = {
 
     next();
   },
+
+  validateSalesQuantity: (req, res, next) => {
+    const sales = req.body;
+    const thereIsMissingQuantity = sales.some((product) => !product.quantity);
+    if (thereIsMissingQuantity) return res.status(400).json({ message: msg.QUANTITY_REQUIRED });
+    const someQuantityIsInvalid = sales
+      .some((sale) => typeof sale.quantity !== 'number' || sale.quantity < 1);
+    if (someQuantityIsInvalid) return res.status(422).json({ message: msg.QUANTITY_LARGER_THAN_0 });
+
+    next();
+  },
 };
