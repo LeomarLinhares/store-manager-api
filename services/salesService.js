@@ -16,4 +16,19 @@ module.exports = {
       console.log(error);
     }
   },
+
+  /* eslint-disable camelcase */
+  getAll: async () => {
+    const sales = await salesModel.getAll();
+    const productsSold = await salesProductsModel.getAll();
+    return productsSold.reduce((acc, curr) => {
+      const correspondingSale = sales.find((sale) => sale.id === curr.sale_id);
+      return [...acc, {
+        saleId: curr.sale_id,
+        date: correspondingSale.date,
+        product_id: curr.product_id,
+        quantity: curr.quantity,
+      }];
+    }, []);
+  },
 };
