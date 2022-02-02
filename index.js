@@ -12,6 +12,7 @@ const {
 
 const {
   createSale,
+  getAllSales,
 } = require('./controllers/salesController');
 
 const {
@@ -36,7 +37,8 @@ app.get('/', (_request, response) => {
 });
 
 app.route('/sales')
-  .post(validateProductId, validateSalesQuantity, createSale);
+  .post(validateProductId, validateSalesQuantity, createSale)
+  .get(getAllSales);
 
 app.route('/products/:id')
   .get(validateId, getProductById)
