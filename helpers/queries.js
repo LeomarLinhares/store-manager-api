@@ -6,7 +6,9 @@ module.exports = {
   REMOVE_PRODUCT: 'DELETE FROM StoreManager.products WHERE id = ?',
 
   INSERT_SALE: 'INSERT INTO StoreManager.sales (`date`) VALUE (CURRENT_TIMESTAMP)',
+  SELECT_ALL_SALES: 'SELECT * FROM StoreManager.sales',
 
   INSERT_SALES_PRODUCTS: `INSERT INTO StoreManager.sales_products (sale_id, product_id, quantity)
   VALUES ?`,
+  SELECT_ALL_SALES_PRODUCTS: 'SELECT * FROM StoreManager.sales_products',
 };
