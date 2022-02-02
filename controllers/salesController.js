@@ -7,4 +7,8 @@ module.exports = {
     res.status(201).json(response);
   },
 
+  getAllSales: async (req, res) => {
+    const response = await salesService.getAll();
+    res.status(200).json(response);
+  },
 };
