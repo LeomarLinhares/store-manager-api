@@ -1,4 +1,5 @@
 const msg = require('../messages/messages');
+const salesModel = require('../models/salesModel');
 
 module.exports = {
   validateProductId: (req, res, next) => {
@@ -16,6 +17,14 @@ module.exports = {
     const someQuantityIsInvalid = sales
       .some((sale) => typeof sale.quantity !== 'number' || sale.quantity < 1);
     if (someQuantityIsInvalid) return res.status(422).json({ message: msg.QUANTITY_LARGER_THAN_0 });
+
+    next();
+  },
+
+  validateSaleId: async (req, res, next) => {
+    const { id } = req.params;
+    const [sale] = await salesModel.getById(id);
+    if (!sale) return res.status(404).json({ message: msg.SALE_NOT_FOUND });
 
     next();
   },
