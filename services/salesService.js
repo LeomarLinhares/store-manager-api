@@ -18,18 +18,22 @@ module.exports = {
   },
 
   getAll: async () => {
-    const sales = await salesModel.getAll();
-    const productsSold = await salesProductsModel.getAll();
-
-    return productsSold.reduce((acc, curr) => {
-      const correspondingSale = sales.find((sale) => sale.id === curr.sale_id);
-      const result = [...acc, {
-        saleId: curr.sale_id,
-        date: correspondingSale.date,
-        ...curr,
-      }];
-      // delete result.sale_id;
-      return result;
-    }, []);
+    try {
+      const sales = await salesModel.getAll();
+      const productsSold = await salesProductsModel.getAll();
+  
+      return productsSold.reduce((acc, curr) => {
+        const correspondingSale = sales.find((sale) => sale.id === curr.sale_id);
+        const sale = {
+          saleId: curr.sale_id,
+          date: correspondingSale.date,
+          ...curr,
+        };
+        delete sale.sale_id;
+        return [...acc, sale];
+      }, []);
+    } catch (error) {
+      console.log(error);
+    }
   },
 };
