@@ -13,6 +13,7 @@ const {
 const {
   createSale,
   getAllSales,
+  getSaleById,
 } = require('./controllers/salesController');
 
 const {
@@ -25,6 +26,7 @@ const {
 const {
   validateProductId,
   validateSalesQuantity,
+  validateSaleId,
 } = require('./middlewares/validateSales');
 
 const app = express();
@@ -35,6 +37,9 @@ app.use(bodyParser.json());
 app.get('/', (_request, response) => {
   response.send();
 });
+
+app.route('/sales/:id')
+  .get(validateSaleId, getSaleById);
 
 app.route('/sales')
   .post(validateProductId, validateSalesQuantity, createSale)
