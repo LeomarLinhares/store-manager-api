@@ -11,4 +11,9 @@ module.exports = {
     const [rows] = await connection.execute(QUERY.SELECT_ALL_SALES);
     return rows;
   },
+
+  getById: async (id) => {
+    const [rows] = await connection.execute(QUERY.SELECT_SALE_BY_ID, [id]);
+    return rows;
+  },
 };

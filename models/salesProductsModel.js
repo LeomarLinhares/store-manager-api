@@ -11,4 +11,10 @@ module.exports = {
     const [rows] = await connection.execute(QUERY.SELECT_ALL_SALES_PRODUCTS);
     return rows;
   },
+
+  getById: async (id) => {
+    const [rows] = await connection.execute(QUERY.SELECT_ALL_SALES_PRODUCTS_BY_ID, [id]);
+    console.log(rows);
+    return rows;
+  },
 };
