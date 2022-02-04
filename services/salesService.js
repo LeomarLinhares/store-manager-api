@@ -36,4 +36,20 @@ module.exports = {
       console.log(error);
     }
   },
+
+  getById: async (id) => {
+    try {
+      const [sale] = await salesModel.getById(id);
+      const products = await salesProductsModel.getById(id);
+
+      return products.reduce((acc, curr) => {
+        const result = { ...curr, date: sale.date };
+        delete result.sale_id;
+
+        return [...acc, result];
+      }, []);
+    } catch (error) {
+      console.log(error);
+    }
+  },
 };
