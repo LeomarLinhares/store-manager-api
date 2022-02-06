@@ -52,4 +52,19 @@ module.exports = {
       console.log(error);
     }
   },
+
+  update: async (id, items) => {
+    try {
+      items.forEach(async (item) => {
+        await salesProductsModel.update(item.product_id, item.quantity, id);
+      });
+      const response = {
+        saleId: id,
+        itemUpdated: items,
+      };
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  },
 };
