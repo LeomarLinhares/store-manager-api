@@ -13,4 +13,6 @@ module.exports = {
   VALUES ?`,
   SELECT_ALL_SALES_PRODUCTS: 'SELECT * FROM StoreManager.sales_products',
   SELECT_ALL_SALES_PRODUCTS_BY_ID: 'SELECT * FROM StoreManager.sales_products WHERE sale_id = ?',
+  UPDATE_SALES_PRODUCTS: `UPDATE StoreManager.sales_products SET quantity = ?
+  WHERE sale_id = ? AND product_id = ?`,
 };
