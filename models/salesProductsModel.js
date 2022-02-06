@@ -17,4 +17,8 @@ module.exports = {
     console.log(rows);
     return rows;
   },
+
+  update: async (productId, quantity, saleId) => {
+    await connection.execute(QUERY.UPDATE_SALES_PRODUCTS, [quantity, saleId, productId]);
+  },
 };
