@@ -55,16 +55,31 @@ module.exports = {
 
   update: async (id, items) => {
     try {
-      items.forEach(async (item) => {
-        await salesProductsModel.update(item.product_id, item.quantity, id);
-      });
-      const response = {
-        saleId: id,
-        itemUpdated: items,
-      };
+      const allSales = await salesProductsModel.getById(id);
+
+      const changedItems = await items.reduce(async (acc, curr) => {
+        const existingProductOnSale = allSales.find((sale) => sale.product_id === curr.product_id);
+        if (existingProductOnSale !== undefined) {
+          await salesProductsModel.update(curr.product_id, curr.quantity, id);
+          const resolvedAccumulator = await acc;
+          return [...resolvedAccumulator, curr];
+        }
+        return acc;
+      }, []);
+
+      const response = { saleId: id, itemUpdated: changedItems };
       return response;
     } catch (error) {
       console.log(error);
     }
   },
 };
+
+// Leomar do futuro, se liga:
+// --------------------------
+// você criou um reduce que mexe com funções assíncronas e o reduce trabalha com
+// os retornos de cada iteração para gerar os Accumulators.
+// O problema é que todos os retornos vão ser promisses e antes de trabalhar com elas
+// você tem que resolver. É por isso que você criou a variável resolvedAccumulator e colocou
+// um await em frente ao acc. Assim você resolve a promisse antes que possa desestruturar elas
+// nos retornos do reduce.
