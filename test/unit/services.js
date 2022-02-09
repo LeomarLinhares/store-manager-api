@@ -1,6 +1,5 @@
 const sinon = require('sinon');
 const { expect } = require('chai');
-const connection = require('../../models/connection');
 const productsModel = require('../../models/productsModel');
 const productsService = require('../../services/productsService');
 
@@ -37,7 +36,23 @@ describe('O service productsService', () => {
     })
   });
 
-  // describe('quando chamada a função getAll', () => {});
+  describe('quando chamada a função getAll', () => {
+    beforeAll(async () => {
+      sinon.stub(productsModel, 'getAll').resolves([{}, {}]);
+    });
+
+    afterAll(async () => {
+      productsModel.getAll.restore();
+    });
+
+    it('retorna uma lista de objetos', async () => {
+      const result = await productsService.getAll();
+      expect(result).to.be.an('array');
+      expect(result).to.have.lengthOf(2);
+      expect(result[0]).to.be.an('object');
+    })
+  });
+
   // describe('quando chamada a função getById', () => {});
   // describe('quando chamada a função update', () => {});
   // describe('quando chamada a função remove', () => {});
