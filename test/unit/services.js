@@ -53,7 +53,22 @@ describe('O service productsService', () => {
     })
   });
 
-  // describe('quando chamada a função getById', () => {});
+  describe('quando chamada a função getById', () => {
+    before(async () => {
+      sinon.stub(productsModel, 'getById').resolves([{}]);
+    });
+
+    after(async () => {
+      productsModel.getById.restore();
+    });
+
+    it('retorna um objeto', async () => {
+      const result = await productsService.getById();
+      expect(result).to.be.an('object');
+    })
+
+  });
+
   // describe('quando chamada a função update', () => {});
   // describe('quando chamada a função remove', () => {});
 });
