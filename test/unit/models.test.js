@@ -2,6 +2,16 @@ const sinon = require('sinon');
 const { expect } = require('chai');
 const connection = require('../../models/connection');
 const productsModel = require('../../models/productsModel');
+const salesModel = require('../../models/salesModel');
+
+const resultSetHeader = {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 1,
+  info: '',
+  serverStatus: 2,
+  warningStatus: 0
+};
 
 describe('O model productsModel', () => {
   describe('quando chamada a função getAll', () => {
@@ -36,15 +46,6 @@ describe('O model productsModel', () => {
   });
 
   describe('quando chamada a função create', () => {
-    const resultSetHeader = {
-      fieldCount: 0,
-      affectedRows: 1,
-      insertId: 1,
-      info: '',
-      serverStatus: 2,
-      warningStatus: 0
-    };
-
     beforeAll(async () => {
       sinon.stub(connection, 'execute').resolves([resultSetHeader])
     });
@@ -55,6 +56,24 @@ describe('O model productsModel', () => {
     
     it('retorna um objeto ResultSetHeader contendo o insertId', async () => {
       const result = await productsModel.create();
+      expect(result).to.be.an('object');
+      expect(result).to.have.property('insertId');
+    });
+  });
+});
+
+describe('O model salesModel', () => {
+  describe('quando chamada a função create', () => {
+    beforeAll(async () => {
+      sinon.stub(connection, 'execute').resolves([resultSetHeader])
+    });
+
+    afterAll(async () => {
+      connection.execute.restore();
+    });
+  
+    it('retorna um objeto ResultSetHeader contendo o insertId', async () => {
+      const result = await salesModel.create();
       expect(result).to.be.an('object');
       expect(result).to.have.property('insertId');
     });
