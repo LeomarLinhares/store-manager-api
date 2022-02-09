@@ -16,11 +16,11 @@ const resultSetHeader = {
 
 describe('O model productsModel', () => {
   describe('quando chamada a função getAll', () => {
-    beforeAll(async () => {
+    before(async () => {
       sinon.stub(connection, 'execute').resolves([[], []]);
     });
 
-    afterAll(async () => {
+    after(async () => {
       connection.execute.restore();
     });
 
@@ -31,11 +31,11 @@ describe('O model productsModel', () => {
   });
 
   describe('quando chamada a função getById', () => {
-    beforeAll(async () => {
+    before(async () => {
       sinon.stub(connection, 'execute').resolves([[{}], []]);
     });
 
-    afterAll(async () => {
+    after(async () => {
       connection.execute.restore();
     });
 
@@ -47,11 +47,11 @@ describe('O model productsModel', () => {
   });
 
   describe('quando chamada a função create', () => {
-    beforeAll(async () => {
+    before(async () => {
       sinon.stub(connection, 'execute').resolves([resultSetHeader])
     });
 
-    afterAll(async () => {
+    after(async () => {
       connection.execute.restore();
     });
     
@@ -69,11 +69,11 @@ describe('O model productsModel', () => {
       quantity: 6,
     }
 
-    beforeAll(async () => {
+    before(async () => {
       sinon.stub(connection, 'execute').resolves([[{}], []]);
     });
 
-    afterAll(async () => {
+    after(async () => {
       connection.execute.restore();
     });
 
@@ -90,11 +90,11 @@ describe('O model productsModel', () => {
   });
 
   describe('quando chamada a função remove', () => {
-    beforeAll(async () => {
+    before(async () => {
       sinon.stub(connection, 'execute').resolves([[{}], []]);
     });
 
-    afterAll(async () => {
+    after(async () => {
       connection.execute.restore();
     });
 
@@ -107,11 +107,11 @@ describe('O model productsModel', () => {
 
 describe('O model salesModel', () => {
   describe('quando chamada a função create', () => {
-    beforeAll(async () => {
+    before(async () => {
       sinon.stub(connection, 'execute').resolves([resultSetHeader])
     });
 
-    afterAll(async () => {
+    after(async () => {
       connection.execute.restore();
     });
   
@@ -123,11 +123,11 @@ describe('O model salesModel', () => {
   });
 
   describe('quando chamada a função getAll', () => {
-    beforeAll(async () => {
+    before(async () => {
       sinon.stub(connection, 'execute').resolves([[], []]);
     });
 
-    afterAll(async () => {
+    after(async () => {
       connection.execute.restore();
     });
 
@@ -138,11 +138,11 @@ describe('O model salesModel', () => {
   });
 
   describe('quando chamada a função getById', () => {
-    beforeAll(async () => {
+    before(async () => {
       sinon.stub(connection, 'execute').resolves([[{}], []]);
     });
 
-    afterAll(async () => {
+    after(async () => {
       connection.execute.restore();
     });
 
@@ -157,11 +157,11 @@ describe('O model salesModel', () => {
 
 describe('O model salesProductsModel', () => {
   describe('quando chamada a função create', () => {
-    beforeAll(async () => {
+    before(async () => {
       sinon.stub(connection, 'query').resolves([resultSetHeader])
     });
 
-    afterAll(async () => {
+    after(async () => {
       connection.query.restore();
     });
   
@@ -173,11 +173,11 @@ describe('O model salesProductsModel', () => {
   });
 
   describe('quando chamada a função getAll', () => {
-    beforeAll(async () => {
+    before(async () => {
       sinon.stub(connection, 'execute').resolves([[], []]);
     });
 
-    afterAll(async () => {
+    after(async () => {
       connection.execute.restore();
     });
 
@@ -188,11 +188,11 @@ describe('O model salesProductsModel', () => {
   });
 
   describe('quando chamada a função getById', () => {
-    beforeAll(async () => {
+    before(async () => {
       sinon.stub(connection, 'execute').resolves([[{}], []]);
     });
 
-    afterAll(async () => {
+    after(async () => {
       connection.execute.restore();
     });
 
@@ -204,11 +204,11 @@ describe('O model salesProductsModel', () => {
   });
 
   describe('quando chamada a função update', () => {
-    beforeAll(async () => {
+    before(async () => {
       sinon.stub(connection, 'execute').resolves([[{}], []]);
     });
 
-    afterAll(async () => {
+    after(async () => {
       connection.execute.restore();
     });
 

@@ -19,11 +19,11 @@ describe('O service productsService', () => {
       quantity: 1,
     }
 
-    beforeAll(async () => {
+    before(async () => {
       sinon.stub(productsModel, 'create').resolves(resultSetHeader);
     });
 
-    afterAll(async () => {
+    after(async () => {
       productsModel.create.restore();
     });
 
@@ -37,11 +37,11 @@ describe('O service productsService', () => {
   });
 
   describe('quando chamada a função getAll', () => {
-    beforeAll(async () => {
+    before(async () => {
       sinon.stub(productsModel, 'getAll').resolves([{}, {}]);
     });
 
-    afterAll(async () => {
+    after(async () => {
       productsModel.getAll.restore();
     });
 
