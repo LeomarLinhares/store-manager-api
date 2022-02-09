@@ -88,6 +88,21 @@ describe('O model productsModel', () => {
       expect(result.quantity).to.be.equal(6);
     });
   });
+
+  describe('quando chamada a função remove', () => {
+    beforeAll(async () => {
+      sinon.stub(connection, 'execute').resolves([[{}], []]);
+    });
+
+    afterAll(async () => {
+      connection.execute.restore();
+    });
+
+    it('não retorna nada', async () => {
+      const result = await productsModel.remove(1);
+      expect(result).to.be.equal(undefined);
+    });
+  });
 });
 
 describe('O model salesModel', () => {
