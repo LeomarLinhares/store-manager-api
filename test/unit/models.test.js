@@ -93,4 +93,20 @@ describe('O model salesModel', () => {
       expect(result).to.be.an('array');
     });
   });
+
+  describe('quando chamada a função getById', () => {
+    beforeAll(async () => {
+      sinon.stub(connection, 'execute').resolves([[{}], []]);
+    });
+
+    afterAll(async () => {
+      connection.execute.restore();
+    });
+
+    it('retorna um array contendo um único objeto', async () => {
+      const result = await salesModel.getById(1);
+      expect(result).to.be.an('array');
+      expect(result).to.have.lengthOf(1);
+    });
+  });
 });
