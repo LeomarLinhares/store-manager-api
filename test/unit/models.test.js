@@ -78,4 +78,19 @@ describe('O model salesModel', () => {
       expect(result).to.have.property('insertId');
     });
   });
+
+  describe('quando chamada a função getAll', () => {
+    beforeAll(async () => {
+      sinon.stub(connection, 'execute').resolves([[], []]);
+    });
+
+    afterAll(async () => {
+      connection.execute.restore();
+    });
+
+    it('retorna um array', async () => {
+      const result = await salesModel.getAll();
+      expect(result).to.be.an('array');
+    });
+  });
 });
