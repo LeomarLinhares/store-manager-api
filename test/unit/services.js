@@ -173,7 +173,27 @@ describe('O service salesService', () => {
     })
   });
 
-  // describe('quando chamada a função getById', () => {});
+  describe('quando chamada a função getById', () => {
+    const salesModelResponse = [{ id: 1, date: '2022-02-10T15:50:30.000Z' }];
+    const salesProductsModelResponse = [{sale_id: 1, product_id: 2, quantity: 2 }];
+
+    before(async () => {
+      sinon.stub(salesModel, 'getById').resolves(salesModelResponse);
+      sinon.stub(salesProductsModel, 'getById').resolves(salesProductsModelResponse);
+    });
+
+    after(async () => {
+      salesModel.getById.restore();
+      salesProductsModel.getById.restore();
+    });
+
+    it('retorna uma lista de objetos', async () => {
+      const result = await salesService.getById(1);
+      expect(result).to.be.an('array');
+      expect(result[0]).to.be.an('object');
+    });
+  });
+
   // describe('quando chamada a função update', () => {});
   // describe('quando chamada a função remove', () => {});
 
