@@ -1,7 +1,10 @@
 const sinon = require('sinon');
 const { expect } = require('chai');
 const productsModel = require('../../models/productsModel');
+const salesModel = require('../../models/salesModel');
+const salesProductsModel = require('../../models/salesProductsModel');
 const productsService = require('../../services/productsService');
+const salesService = require('../../services/salesService');
 
 const resultSetHeader = {
   fieldCount: 0,
@@ -98,10 +101,12 @@ describe('O service productsService', () => {
 
   describe('quando chamada a função remove', () => {
     before(async () => {
-      sinon.stub(productsModel, 'remove').resolves([{}]);
+      sinon.stub(productsModel, 'getById').resolves([{}]);
+      sinon.stub(productsModel, 'remove').resolves(undefined);
     });
 
     after(async () => {
+      productsModel.getById.restore();
       productsModel.remove.restore();
     });
 
@@ -110,4 +115,35 @@ describe('O service productsService', () => {
       expect(result).to.be.an('object');
     })
   });
+});
+
+describe('O service salesService', () => {
+  describe('quando chamada a função create', () => {
+    before(async () => {
+      sinon.stub(salesModel, 'create').resolves(resultSetHeader);
+      sinon.stub(salesProductsModel, 'create').resolves(undefined);
+    });
+
+    after(async () => {
+      salesModel.create.restore();
+      salesProductsModel.create.restore();
+    });
+
+    it('retorna um objeto contendo id, itemsSold', async () => {
+      const result = await salesService.create([]);
+      expect(result).to.be.an('object');
+      expect(result.id).to.be.equal(resultSetHeader.insertId);
+      expect(result.itemsSold).to.be.an('array');
+    });
+  });
+
+  // describe('quando chamada a função getAll', () => {});
+  // describe('quando chamada a função getById', () => {});
+  // describe('quando chamada a função update', () => {});
+  // describe('quando chamada a função remove', () => {});
+
+  // --------- Funções de apoio ----------
+  // describe('quando chamada a função deleteSaleId', () => {});
+  // describe('quando chamada a função updateStockFromSale', () => {});
+  // describe('quando chamada a função restoreStockFromSale', () => {});
 });
