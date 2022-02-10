@@ -194,7 +194,29 @@ describe('O service salesService', () => {
     });
   });
 
-  // describe('quando chamada a função update', () => {});
+  describe('quando chamada a função update', () => {
+    const SALE_ID = 1;
+    const UPDATING_ITEMS = [{ product_id: 1, quantity: 3 }];
+    const salesProductsModelResponse = [{sale_id: 1, product_id: 2, quantity: 2 }];
+
+    before(async () => {
+      sinon.stub(salesProductsModel, 'getById').resolves(salesProductsModelResponse);
+      sinon.stub(salesProductsModel, 'update').resolves(undefined);
+    });
+
+    after(async () => {
+      salesProductsModel.getById.restore();
+      salesProductsModel.update.restore();
+    });
+
+    it('retorna um objeto com saleId e um array em itemUpdated', async () => {
+      const result = await salesService.update(SALE_ID, UPDATING_ITEMS);
+      expect(result).to.be.an('object');
+      expect(result.saleId).to.be.a('number');
+      expect(result.itemUpdated).to.be.an('array');
+    });
+  });
+
   // describe('quando chamada a função remove', () => {});
 
   // --------- Funções de apoio ----------
