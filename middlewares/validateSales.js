@@ -1,5 +1,6 @@
 const msg = require('../messages/messages');
 const salesModel = require('../models/salesModel');
+const productsModel = require('../models/productsModel');
 
 module.exports = {
   validateProductId: (req, res, next) => {
@@ -27,5 +28,24 @@ module.exports = {
     if (!sale) return res.status(404).json({ message: msg.SALE_NOT_FOUND });
 
     next();
+  },
+
+  checkStock: async (req, res, next) => {
+    try {
+      const order = req.body;
+  
+      const haveEverythingInStock = await order.reduce(async (acc, curr) => {
+        const productInStock = await productsModel.getById(curr.product_id);
+        const haveInStock = productInStock[0].quantity >= curr.quantity;
+        const resolvedAcc = await acc;
+        return (haveInStock && resolvedAcc);
+      }, true);
+  
+      if (!haveEverythingInStock) res.status(422).json({ message: msg.OUT_OF_STOCK });
+  
+      next();
+    } catch (error) {
+      console.log(error);
+    }
   },
 };
