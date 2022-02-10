@@ -15,6 +15,7 @@ const {
   getAllSales,
   getSaleById,
   updateSale,
+  deleteSale,
 } = require('./controllers/salesController');
 
 const {
@@ -41,7 +42,8 @@ app.get('/', (_request, response) => {
 
 app.route('/sales/:id')
   .get(validateSaleId, getSaleById)
-  .put(validateProductId, validateSalesQuantity, updateSale);
+  .put(validateProductId, validateSalesQuantity, updateSale)
+  .delete(validateSaleId, deleteSale);
 
 app.route('/sales')
   .post(validateProductId, validateSalesQuantity, createSale)
