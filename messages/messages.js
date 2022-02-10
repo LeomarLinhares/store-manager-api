@@ -9,4 +9,5 @@ module.exports = {
   PRODUCT_NOT_FOUND: 'Product not found',
   PRODUCT_ID_REQUIRED: '"product_id" is required',
   SALE_NOT_FOUND: 'Sale not found',
+  OUT_OF_STOCK: 'Such amount is not permitted to sell',
 };
