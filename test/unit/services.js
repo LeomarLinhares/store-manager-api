@@ -85,7 +85,7 @@ describe('O service productsService', () => {
     });
 
     it('retorna objeto com as informações atualizadas', async () => {
-      const result = await productsModel.update(payload);
+      const result = await productsService.update(payload);
       expect(result).to.be.an('object');
       expect(result.id).to.be.equal(payload.id);
       expect(result.name).to.be.equal(payload.name);
@@ -96,5 +96,18 @@ describe('O service productsService', () => {
     })
   });
 
-  // describe('quando chamada a função remove', () => {});
+  describe('quando chamada a função remove', () => {
+    before(async () => {
+      sinon.stub(productsModel, 'remove').resolves([{}]);
+    });
+
+    after(async () => {
+      productsModel.remove.restore();
+    });
+
+    it('retorna um objeto', async () => {
+      const result = await productsService.remove(2);
+      expect(result).to.be.an('object');
+    })
+  });
 });
