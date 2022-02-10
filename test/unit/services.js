@@ -137,7 +137,42 @@ describe('O service salesService', () => {
     });
   });
 
-  // describe('quando chamada a função getAll', () => {});
+  describe('quando chamada a função getAll', () => {
+    const salesModelResponse = [
+      { id: 1, date: '2022-02-10T15:50:30.000Z' },
+      { id: 2, date: '2022-03-10T11:52:20.000Z' },
+    ];
+    const salesProductsModelResponse = [
+      { sale_id: 1, product_id: 2, quantity: 2 },
+      { sale_id: 2, product_id: 4, quantity: 1 },
+      { sale_id: 2, product_id: 2, quantity: 1 },
+    ];
+
+    before(async () => {
+      sinon.stub(salesModel, 'getAll').resolves(salesModelResponse);
+      sinon.stub(salesProductsModel, 'getAll').resolves(salesProductsModelResponse);
+    });
+
+    after(async () => {
+      salesModel.getAll.restore();
+      salesProductsModel.getAll.restore();
+    });
+
+    it('retorna uma lista de objetos', async () => {
+      const result = await salesService.getAll();
+      expect(result).to.be.an('array');
+      expect(result[0]).to.be.an('object');
+    });
+
+    it('os objetos contém saleId, date, product_id e quantity', async () => {
+      const result = await salesService.getAll();
+      expect(result[0].saleId).to.be.a('number');
+      expect(result[0].date).to.be.a('string');
+      expect(result[0].product_id).to.be.a('number');
+      expect(result[0].quantity).to.be.a('number');
+    })
+  });
+
   // describe('quando chamada a função getById', () => {});
   // describe('quando chamada a função update', () => {});
   // describe('quando chamada a função remove', () => {});
