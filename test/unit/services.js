@@ -69,6 +69,32 @@ describe('O service productsService', () => {
 
   });
 
-  // describe('quando chamada a função update', () => {});
+  describe('quando chamada a função update', () => {
+    const payload = {
+      id: 3,
+      name: 'DVD Diário de uma Princesa',
+      quantity: 1,
+    }
+
+    before(async () => {
+      sinon.stub(productsModel, 'update').resolves(payload);
+    });
+
+    after(async () => {
+      productsModel.update.restore();
+    });
+
+    it('retorna objeto com as informações atualizadas', async () => {
+      const result = await productsModel.update(payload);
+      expect(result).to.be.an('object');
+      expect(result.id).to.be.equal(payload.id);
+      expect(result.name).to.be.equal(payload.name);
+      expect(result.quantity).to.be.equal(payload.quantity);
+      expect(result.id).to.be.a('number');
+      expect(result.name).to.be.a('string');
+      expect(result.quantity).to.be.a('number');
+    })
+  });
+
   // describe('quando chamada a função remove', () => {});
 });
