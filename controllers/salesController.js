@@ -24,4 +24,10 @@ module.exports = {
     const response = await salesService.update(id, items);
     res.status(200).json(response);
   },
+
+  deleteSale: async (req, res) => {
+    const { id } = req.params;
+    const response = await salesService.remove(id);
+    res.status(200).json(response);
+  },
 };
