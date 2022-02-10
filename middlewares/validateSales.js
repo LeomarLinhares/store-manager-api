@@ -41,7 +41,7 @@ module.exports = {
         return (haveInStock && resolvedAcc);
       }, true);
   
-      if (!haveEverythingInStock) res.status(422).json({ message: msg.OUT_OF_STOCK });
+      if (!haveEverythingInStock) return res.status(422).json({ message: msg.OUT_OF_STOCK });
   
       next();
     } catch (error) {
