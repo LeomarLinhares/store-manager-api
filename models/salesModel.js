@@ -16,8 +16,13 @@ const getById = async (id) => {
   return rows;
 };
 
+const remove = async (id) => {
+  await connection.execute(QUERY.REMOVE_SALE, [id]);
+};
+
 module.exports = {
   create,
   getAll,
   getById,
+  remove,
 };
