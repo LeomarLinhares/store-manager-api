@@ -11,7 +11,7 @@ const deleteSaleId = (productsArray, sale) => (productsArray.reduce((acc, curr) 
   return [...acc, result];
 }, []));
 
-const updateStockFromSale = (order) => {
+const updateStockFromSale = async (order) => {
   order.forEach(async (product) => {
     const productInStock = await productsModel.getById(product.product_id);
     await productsModel.update({
@@ -22,13 +22,22 @@ const updateStockFromSale = (order) => {
   });
 };
 
+const restoreStockFromSale = async (id, quantity) => {
+  const productFromDeletedSale = await productsModel.getById(id);
+  await productsModel.update({
+    name: productFromDeletedSale[0].name,
+    id: productFromDeletedSale[0].id,
+    quantity: productFromDeletedSale[0].quantity + quantity,
+  });
+};
+
 module.exports = {
   create: async (order) => {
     try {
       const { insertId } = await salesModel.create();
       const allSales = order.map((product) => [insertId, product.product_id, product.quantity]);
       await salesProductsModel.create(allSales);
-      updateStockFromSale(order);
+      await updateStockFromSale(order);
       return {
         id: insertId,
         itemsSold: order,
@@ -94,6 +103,7 @@ module.exports = {
     try {
       const [sale] = await salesModel.getById(id);
       const products = await salesProductsModel.getById(id);
+      products.forEach((product) => restoreStockFromSale(product.product_id, product.quantity));
       await salesModel.remove(id);
 
       return deleteSaleId(products, sale);
@@ -107,7 +117,7 @@ module.exports = {
 // --------------------------
 // você criou um reduce que mexe com funções assíncronas e o reduce trabalha com
 // os retornos de cada iteração para gerar os Accumulators.
-// O problema é que todos os retornos vão ser promisses e antes de trabalhar com elas
+// O problema é que todos os retornos vão ser promises e antes de trabalhar com elas
 // você tem que resolver. É por isso que você criou a variável resolvedAccumulator e colocou
-// um await em frente ao acc. Assim você resolve a promisse antes que possa desestruturar elas
+// um await em frente ao acc. Assim você resolve a promise antes que possa desestruturar elas
 // nos retornos do reduce.
