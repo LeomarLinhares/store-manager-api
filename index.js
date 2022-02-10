@@ -29,6 +29,7 @@ const {
   validateProductId,
   validateSalesQuantity,
   validateSaleId,
+  checkStock,
 } = require('./middlewares/validateSales');
 
 const app = express();
@@ -46,7 +47,7 @@ app.route('/sales/:id')
   .delete(validateSaleId, deleteSale);
 
 app.route('/sales')
-  .post(validateProductId, validateSalesQuantity, createSale)
+  .post(validateProductId, validateSalesQuantity, checkStock, createSale)
   .get(getAllSales);
 
 app.route('/products/:id')
