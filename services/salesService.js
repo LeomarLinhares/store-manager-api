@@ -1,5 +1,6 @@
 const salesModel = require('../models/salesModel');
 const salesProductsModel = require('../models/salesProductsModel');
+const productsModel = require('../models/productsModel');
 
 // Essa função só existe para atender as exigências do ESLint no momento de avaliação,
 // logo deve ser refatorada assim que for utilizada em portfólio
@@ -10,15 +11,27 @@ const deleteSaleId = (productsArray, sale) => (productsArray.reduce((acc, curr) 
   return [...acc, result];
 }, []));
 
+const updateStockFromSale = (order) => {
+  order.forEach(async (product) => {
+    const productInStock = await productsModel.getById(product.product_id);
+    await productsModel.update({
+      name: productInStock[0].name,
+      id: productInStock[0].id,
+      quantity: productInStock[0].quantity - product.quantity,
+    });
+  });
+};
+
 module.exports = {
-  create: async (sales) => {
+  create: async (order) => {
     try {
       const { insertId } = await salesModel.create();
-      const allSales = sales.map((product) => [insertId, product.product_id, product.quantity]);
+      const allSales = order.map((product) => [insertId, product.product_id, product.quantity]);
       await salesProductsModel.create(allSales);
+      updateStockFromSale(order);
       return {
         id: insertId,
-        itemsSold: sales,
+        itemsSold: order,
       };
     } catch (error) {
       console.log(error);
