@@ -32,6 +32,6 @@ API de gerenciamento de loja em padrão REST feito com Node.js, Express e MySQL.
 
 ## Roadmap
 
-[ ] - Refatorar salesService.js para refazer a forma que remove o snake case
-[ ] - Criar estrutura de pastas mais organizada para melhor aproveitamento em portfólio
-[ ] - Cobrir 100% das camadas da aplicação com os testes
+- [ ] Refatorar salesService.js para refazer a forma que remove o snake case
+- [ ] Criar estrutura de pastas mais organizada para melhor aproveitamento em portfólio
+- [ ] Cobrir 100% das camadas da aplicação com os testes
