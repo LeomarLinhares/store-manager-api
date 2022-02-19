@@ -17,6 +17,8 @@ API de gerenciamento de loja em padrão REST feito com Node.js, Express e MySQL.
 
 ## Instruções para inicializar o projeto
 
+O projeto requer que seja utilizado o banco de dados StoreManager localizado na raíz do projeto (`StoreManager.sql`)
+
 ### 1. Clone o repositório
 
 - `git clone git@github.com:LeomarLinhares/store-manager-api.git`
@@ -130,6 +132,6 @@ Note que trata-se de um Array de itens, logo é possível inserir vários produt
 
 ## Roadmap
 
-[ ] - Refatorar salesService.js para refazer a forma que remove o snake case
-[ ] - Criar estrutura de pastas mais organizada para melhor aproveitamento em portfólio
-[ ] - Cobrir 100% das camadas da aplicação com os testes
+- [ ] Refatorar salesService.js para refazer a forma que remove o snake case
+- [ ] Criar estrutura de pastas mais organizada para melhor aproveitamento em portfólio
+- [ ] Cobrir 100% das camadas da aplicação com os testes
